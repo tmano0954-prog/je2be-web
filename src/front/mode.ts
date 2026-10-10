@@ -6,15 +6,19 @@ import {
   P2JConverterMetadata,
   X2BConverterMetadata,
   X2JConverterMetadata,
+  J2XConverterMetadata,
+  B2XConverterMetadata,
+  J2PConverterMetadata,
+  B2PConverterMetadata,
 } from "../share/progress";
 import { gettext } from "./i18n";
 import { WorkerError, WorkerErrorType } from "../share/messages";
 
-export type ConvertMode = "j2b" | "b2j" | "x2b" | "x2j" | "p2b" | "p2j";
+export type ConvertMode = "j2b" | "b2j" | "x2b" | "x2j" | "p2b" | "p2j" | "j2x" | "b2x" | "j2p" | "b2p";
 export type Mode = "select" | ConvertMode;
 
 export function convertModeSupportsDirectoryInput(mode: ConvertMode): boolean {
-  return mode === "j2b" || mode === "b2j" || mode === "p2b" || mode === "p2j";
+  return mode === "j2b" || mode === "b2j" || mode === "p2b" || mode === "p2j" || mode === "j2x" || mode === "b2x" || mode === "j2p" || mode === "b2p";
 }
 
 export function convertModeInputFileExtension(mode: ConvertMode): string {
@@ -22,6 +26,10 @@ export function convertModeInputFileExtension(mode: ConvertMode): string {
     case "j2b":
     case "p2b":
     case "p2j":
+    case "j2x":
+    case "b2x":
+    case "j2p":
+    case "b2p":
       return ".zip";
     case "b2j":
       return ".mcworld";
@@ -36,10 +44,14 @@ export function convertModeOutputFileExtension(mode: ConvertMode): string {
     case "j2b":
     case "x2b":
     case "p2b":
+    case "b2x":
+    case "b2p":
       return ".mcworld";
     case "b2j":
     case "x2j":
     case "p2j":
+    case "j2x":
+    case "j2p":
       return ".zip";
   }
 }
@@ -88,6 +100,14 @@ export function convertModeMetadata(
       return new P2BConverterMetadata(file);
     case "p2j":
       return new P2JConverterMetadata(file);
+    case "j2x":
+      return new J2XConverterMetadata(file);
+    case "b2x":
+      return new B2XConverterMetadata(file);
+    case "j2p":
+      return new J2PConverterMetadata(file);
+    case "b2p":
+      return new B2PConverterMetadata(file);
   }
 }
 
@@ -105,5 +125,13 @@ export function convertModeDescription(mode: ConvertMode): string {
       return gettext("PS3 to Bedrock");
     case "p2j":
       return gettext("PS3 to Java");
+    case "j2x":
+      return gettext("Java to Xbox360");
+    case "b2x":
+      return gettext("Bedrock to Xbox360");
+    case "j2p":
+      return gettext("Java to PS3");
+    case "b2p":
+      return gettext("Bedrock to PS3");
   }
-}
+  }
