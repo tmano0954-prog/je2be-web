@@ -234,6 +234,170 @@ export class P2BConverterMetadata implements ConverterMetadata {
   }
 }
 
+// NEW CONVERTERS - Java to Xbox360
+export class J2XConverterMetadata implements ConverterMetadata {
+  constructor(readonly file: boolean) {}
+
+  get steps(): Step[] {
+    if (this.file) {
+      return ["unzip", "convert", "postprocess", "compaction"];
+    } else {
+      return ["copy", "convert", "postprocess", "compaction"];
+    }
+  }
+
+  displayUnit(step: Step): string | undefined {
+    switch (step) {
+      case "unzip":
+      case "copy":
+        return "files";
+      case "convert":
+        return "chunks";
+      case "postprocess":
+        return undefined;
+      case "compaction":
+        return undefined;
+    }
+  }
+
+  stepDescription(step: Step): string | undefined {
+    switch (step) {
+      case "unzip":
+        return "Unzip";
+      case "copy":
+        return "Copy";
+      case "convert":
+        return "Convert";
+      case "postprocess":
+        return "Post Process";
+      case "compaction":
+        return "Xbox Compaction";
+    }
+  }
+}
+
+// NEW CONVERTERS - Bedrock to Xbox360
+export class B2XConverterMetadata implements ConverterMetadata {
+  constructor(readonly file: boolean) {}
+
+  get steps(): Step[] {
+    if (this.file) {
+      return ["unzip", "convert", "postprocess"];
+    } else {
+      return ["copy", "convert", "postprocess"];
+    }
+  }
+
+  displayUnit(step: Step): string | undefined {
+    switch (step) {
+      case "unzip":
+      case "copy":
+        return "files";
+      case "convert":
+        return "chunks";
+      case "postprocess":
+        return undefined;
+    }
+  }
+
+  stepDescription(step: Step): string | undefined {
+    switch (step) {
+      case "unzip":
+        return "Unzip";
+      case "copy":
+        return "Copy";
+      case "convert":
+        return "Convert";
+      case "postprocess":
+        return "Post Process";
+    }
+  }
+}
+
+// NEW CONVERTERS - Java to PS3
+export class J2PConverterMetadata implements ConverterMetadata {
+  constructor(readonly file: boolean) {}
+
+  get steps(): Step[] {
+    if (this.file) {
+      return ["unzip", "extract", "convert", "postprocess"];
+    } else {
+      return ["copy", "extract", "convert", "postprocess"];
+    }
+  }
+
+  displayUnit(step: Step): string | undefined {
+    switch (step) {
+      case "copy":
+      case "unzip":
+        return "files";
+      case "extract":
+        return undefined;
+      case "convert":
+        return "chunks";
+      case "postprocess":
+        return undefined;
+    }
+  }
+
+  stepDescription(step: Step): string | undefined {
+    switch (step) {
+      case "copy":
+        return "Copy";
+      case "unzip":
+        return "Unzip";
+      case "extract":
+        return "Extract";
+      case "convert":
+        return "Convert";
+      case "postprocess":
+        return "Post Process";
+    }
+  }
+}
+
+// NEW CONVERTERS - Bedrock to PS3
+export class B2PConverterMetadata implements ConverterMetadata {
+  constructor(readonly file: boolean) {}
+
+  get steps(): Step[] {
+    if (this.file) {
+      return ["unzip", "extract", "convert", "postprocess"];
+    } else {
+      return ["copy", "extract", "convert", "postprocess"];
+    }
+  }
+
+  displayUnit(step: Step): string | undefined {
+    switch (step) {
+      case "copy":
+      case "unzip":
+        return "files";
+      case "extract":
+        return undefined;
+      case "convert":
+        return "chunks";
+      case "postprocess":
+        return undefined;
+    }
+  }
+
+  stepDescription(step: Step): string | undefined {
+    switch (step) {
+      case "copy":
+        return "Copy";
+      case "unzip":
+        return "Unzip";
+      case "extract":
+        return "Extract";
+      case "convert":
+        return "Convert";
+      case "postprocess":
+        return "Post Process";
+    }
+  }
+}
+
 export function nextProgress(
   progress: Progress,
   m: ProgressMessage,
@@ -276,4 +440,4 @@ export function initialProgress(meta: ConverterMetadata): Progress {
     }
   }
   return ret;
-}
+  }
